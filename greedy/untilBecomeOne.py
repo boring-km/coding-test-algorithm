@@ -3,12 +3,11 @@ n, k = [int(i) for i in input().split()]
 
 result = 0
 
-while True:
-    if n == 1:
-        print(result)
-        break
+while n != 1:
     if n % k == 0:
         n = int(n/k)
     else:
         n -= 1
     result += 1
+
+print(result)
