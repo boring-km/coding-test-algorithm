@@ -1,4 +1,4 @@
-# 2시간 25분 44초
+# 2시간 25분 44초 실패 (메모리 초과)
 n = int(input())
 data = [[0 for _ in range(n+1)] for j in range(n+1)]
 start = 0
