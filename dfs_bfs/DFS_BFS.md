@@ -3,6 +3,7 @@
 - 2. 탐색 알고리즘 DFS/BFS
 - 3. 음료수 얼려 먹기
 - 4. 미로 탈출
+- 5. 백준 추가 문제 - DFS, BFS
 
 ## 1. 꼭 필요한 자료구조 기초
 - 대표적인 탐색 알고리즘: DFS, BFS
@@ -49,7 +50,7 @@ print(queue) # deque([3,4])
 ## 2. 탐색 알고리즘 DFS/BFS
 - DFS
 - BFS
-- 인접 행렬 방식: 2차원 배열에 각 노드가 연결된 형태 기록하는 방식
+- **인접 행렬 방식**: 2차원 배열에 각 노드가 연결된 형태 기록하는 방식
 
 ![그래프](matrix.png)
 
@@ -59,7 +60,7 @@ print(queue) # deque([3,4])
 | 1    | 7    | 0    | 무한 |
 | 2    | 5    | 무한 | 0    |
 
-- 인접 리스트 방식: 연결된 노드에 대한 정보를 차례대로 연결하여 저장
+- **인접 리스트 방식**: 연결된 노드에 대한 정보를 차례대로 연결하여 저장
 
 ![그래프2](list.png)
 
@@ -230,4 +231,58 @@ def bfs(graph, y, x, visited):
 
 print(bfs(data, 0, 0, visited))
 
+```
+
+## 5. 백준 추가 문제
+- DFS문제는 메모리 초과..
+  - 
+- BFS문제 4963번
+```python
+# 30 ~ 40분정도?
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+moveY = [1, -1, 0, 0, 1, 1, -1, -1]
+moveX = [0, 0, -1, 1, 1, -1, -1, 1]
+
+
+def bfs(graph, startY, startX, visited):
+    queueY = deque([startY])
+    queueX = deque([startX])
+    visited[startY][startX] = True
+
+    while queueY or queueX:
+        ty = queueY.popleft()
+        tx = queueX.popleft()
+        for i in range(8):
+            targetX = tx + moveX[i]
+            targetY = ty + moveY[i]
+            if 0 <= targetX < m and 0 <= targetY < n:
+                if graph[targetY][targetX] == 1 and not visited[targetY][targetX]:
+                    queueY.append(targetY)
+                    queueX.append(targetX)
+                    visited[targetY][targetX] = True
+
+resultList = []
+while True:
+    temp = input().split()
+    m, n = [int(i) for i in temp]
+    if n == 0 and m == 0:
+        break
+    data = [[int(i) for i in input().split()] for j in range(n)]
+    visited = [[False for i in range(m)] for j in range(n)]
+    result = 0
+
+    for y in range(n):
+        for x in range(m):
+            if visited[y][x]:
+                continue
+            if not visited[y][x] and data[y][x] == 1:
+                bfs(data, y, x, visited)
+                result += 1
+    resultList.append(result)
+
+for item in resultList:
+    print(item)
 ```
