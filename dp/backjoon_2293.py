@@ -9,9 +9,9 @@ cur[0] = 1
 
 for i in range(1, n+1):
     for j in range(1, k+1):
-        if j >= data[i]:
+        if j - data[i] >= 0:
             cur[j] += cur[j-data[i]]
-    print(cur)
+    # print(cur)
 print(cur[k])
 
 '''
