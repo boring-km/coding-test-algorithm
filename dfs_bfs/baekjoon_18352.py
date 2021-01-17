@@ -1,4 +1,3 @@
-18352
 # 2시간 정도
 import heapq
 import sys
