@@ -9,7 +9,6 @@ count = 0
 
 for i in range(M):
     count += 1
-    print(i, count)
     if K - count < 0:
         result += array[1]
         count = 0
