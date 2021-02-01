@@ -1,3 +1,4 @@
+# 풀이법을 몰라 포기함~
 first = input()
 second = input()
 
@@ -27,5 +28,3 @@ def lcs(f_str, s_str):
 
 print(lcs(first, second))
 
-# AACGGAACACGCTTTAAGGGCGATGGAATACCGTGGGTTTACCTAAAACTA
-# AATCTGGCCTATTCTGGGTCAAATGGCGTGAGCAAACATCGTACA
