@@ -14,13 +14,15 @@ n = len(data)
 def knapsack(cur, limit):
     if cur == n:    # 끝까지 가면
         return 0
-    weight = dp[cur][limit]
-    if weight != 0:
-        return weight
+    value = dp[cur][limit]
+    if value != 0:
+        return value
+    # 배낭에 추가할 수 있는 무게라면 일단 추가해보고 그 value를 구한다.
     if data[cur][0] <= limit:
-        weight = knapsack(cur + 1, limit - data[cur][0]) + data[cur][1]
-    weight = max(weight, knapsack(cur + 1, limit))
-    dp[cur][limit] = weight
+        value = knapsack(cur + 1, limit - data[cur][0]) + data[cur][1]
+    # 새롭게 추가된 value가 있다면 다음 번을 먼저 탐색한 결과와 비교해서 큰 값으로 결정한다.
+    # dp 갱신
+    dp[cur][limit] = max(value, knapsack(cur + 1, limit))
     return dp[cur][limit]
 
 
