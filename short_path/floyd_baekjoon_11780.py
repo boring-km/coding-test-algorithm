@@ -17,6 +17,10 @@ for _ in range(m):
         data[a][b] = c
     data_route[a][b] = [a, b]
 
+for _ in range(n+1):
+    print(data_route[_])
+
+# 플로이드
 for k in range(1, n+1):
     for a in range(1, n+1):
         for b in range(1, n+1):

@@ -1,13 +1,13 @@
 # https://reakwon.tistory.com/34
 
-n, k = map(int, input().split())
+n, k = map(int, input().split())    # n: 물건의 갯수
 data = []
 dp = [[0] * (k+1) for _ in range(n)]
 for i in range(n):
     w, v = map(int, input().split())
     if w <= k:
         data.append([w, v])
-n = len(data)
+n = len(data)   # 준서가 들 수 있는 물건들의 갯수
 
 
 # 배낭 알고리즘
@@ -15,6 +15,7 @@ def knapsack(cur, limit):
     if cur == n:    # 끝까지 가면
         return 0
     value = dp[cur][limit]
+    # 현재 가치가 0일때만 진입
     if value != 0:
         return value
     # 배낭에 추가할 수 있는 무게라면 일단 추가해보고 그 value를 구한다.

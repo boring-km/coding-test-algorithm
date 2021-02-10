@@ -30,24 +30,24 @@ def dijkstra(start):
 
 
 dijkstra(1)
-v1_first = distance[v1]
-v2_first = distance[v2]
+v1_first = distance[v1]     # 최단경로 1 -> v1
+v2_first = distance[v2]     # 최단경로 1 -> v2
 distance = [1e9] * (n+1)
 
 dijkstra(v1)
-v1_second = distance[v2]
+v1_second = distance[v2]    # 최단경로 v1 -> v2
 distance = [1e9] * (n+1)
 dijkstra(v2)
-v1_last = distance[n]
+v1_last = distance[n]       # 최단경로 v2 -> n
 distance = [1e9] * (n+1)
-check1 = v1_first + v1_second + v1_last
+check1 = v1_first + v1_second + v1_last     # 1 -> v1 -> v2 -> n
 
 dijkstra(v2)
-v2_second = distance[v1]
+v2_second = distance[v1]    # 최단경로 v2 -> v1
 distance = [1e9] * (n+1)
 dijkstra(v1)
-v2_last = distance[n]
-check2 = v2_first + v2_second + v2_last
+v2_last = distance[n]       # 최단경로 v1 -> n
+check2 = v2_first + v2_second + v2_last     # 1 -> v2 -> v1 -> n
 
 answer = min(check1, check2)
 
