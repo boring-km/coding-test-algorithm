@@ -1,6 +1,7 @@
 import sys
 from itertools import permutations
-from heapdict import heapdict
+from collections import defaultdict
+from heapq import *
 
 input = sys.stdin.readline
 n = int(input())
@@ -10,34 +11,36 @@ for i in range(n):
     x, y, z = map(int, input().split())
     node_list.append([x, y, z])
 
-test = dict()
+edges = []
 for item in permu:
     left, right = item[0], item[1]
     l, r = node_list[left], node_list[right]
     dist = min(abs(l[0]-r[0]), abs(l[1]-r[1]), abs(l[2]-r[2]))
-    if test.get(left) is not None:
-        test[left][right] = dist
-    else:
-        test[left] = dict()
-        test[left] = {right: dist}
+    edges.append([dist, str(left), str(right)])
 
 
-def prim(graph, start):
-    mst, keys, pi, total = list(), heapdict(), dict(), 0
-    for node in graph.keys():
-        keys[node] = 1e12
-        pi[node] = None
-    keys[start], pi[start] = 0, start
+def prim(first_node):
+    mst = []
+    adj_edges = defaultdict(list)
+    for weight, node1, node2 in edges:
+        adj_edges[node1].append([weight, node1, node2])
+    connected = set(first_node)
+    selected_edge = adj_edges[first_node]
+    heapify(selected_edge)
 
-    while keys:
-        cur_node, cur_key = keys.popitem()
-        mst.append([pi[cur_node], cur_node, cur_key])
-        total += cur_key
-        for adj, weight in test[cur_node].items():
-            if adj in keys and weight < keys[adj]:
-                keys[adj] = weight
-                pi[adj] = cur_node
-    return total
+    while selected_edge:
+        weight, node1, node2 = heappop(selected_edge)
+        if node2 not in connected:
+            connected.add(node2)
+            mst.append([weight, node1, node2])
+            for edge in adj_edges[node2]:
+                if edge[2] not in connected:
+                    heappush(selected_edge, edge)
+    answer = 0
+    for temp_node in mst:
+        answer += temp_node[0]
+    return answer
 
 
-print(prim(test, 0))
+print(prim('0'))
+
