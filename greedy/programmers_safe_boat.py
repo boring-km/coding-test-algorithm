@@ -8,32 +8,25 @@ def solution(people, limit):
     count = 0
     while len(people) > 0:
         if cur >= limit:
-            answer += 1
-            count = 0
-            cur = 0
+            answer, count, cur = plus_another_boat(answer)
             continue
+        count += 1
         if cur + people[-1] <= limit:
-            if count == 0:
-                count += 1
+            if count == 1:
                 cur += people.pop()
                 if len(people) == 0:
                     answer += 1
             else:
-                count = 0
                 people.pop()
-                cur = 0
-                answer += 1
+                answer, count, cur = plus_another_boat(answer)
         else:
             if cur + people[0] <= limit:
-                if count == 0:
-                    count += 1
+                if count == 1:
                     cur += people.popleft()
                     people[0] = 0
                 else:
-                    count = 0
                     people.popleft()
-                    cur = 0
-                    answer += 1
+                    answer, count, cur = plus_another_boat(answer)
             else:
                 answer += 1
                 count = 1
@@ -42,6 +35,13 @@ def solution(people, limit):
                     answer += 1
 
     return answer
+
+
+def plus_another_boat(answer):
+    answer += 1
+    count = 0
+    cur = 0
+    return answer, count, cur
 
 
 print(solution([10], 100))
