@@ -3,37 +3,27 @@ from collections import deque
 
 def solution(n, edge):
     answer = 0
-
-    record = dict()
-    graph = dict()
+    visited = [-1 for _ in range(n+1)]
+    # 2차원 배열
+    graph = [[] for _ in range(n+1)]
     for e in edge:
-        start, end = e
-        if graph.get(start):
-            graph[start].append(end)
-        else:
-            graph[start] = [end]
-        if graph.get(end):
-            graph[end].append(start)
-        else:
-            graph[end] = [start]
+        start, end = e[0], e[1]
+        graph[start].append(end)
+        graph[end].append(start)
 
-    start = [[1, 0]]  # 노드 번호와, 현재 이동 거리
-    visited = [1]
-    q = deque(start)
+    dist = 0
+    q = deque([[1, dist]])
     while q:
-        node, dist = q.popleft()
-        if graph.get(node):
-            for next_node in graph.get(node):
-                if next_node and next_node not in visited:
-                    q.append([next_node, dist+1])
-                    visited.append(next_node)
-                    record[next_node] = dist+1
-
-    maxi = max(record.values())
-    for key in record.keys():
-        if record[key] == maxi:
+        v, dist = q.popleft()
+        if visited[v] == -1:
+            visited[v] = dist
+            dist += 1
+            for e in graph[v]:
+                q.append([e, dist])
+    print(visited)
+    for value in visited:
+        if value == max(visited):
             answer += 1
-
     return answer
 
 
