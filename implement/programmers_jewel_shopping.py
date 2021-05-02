@@ -1,38 +1,27 @@
 def solution(gems):
-    answer = []
-    left, right = len(set(gems)), len(gems)
-    find = left
+    final_size = len(set(gems))
+    record = {gems[0]: 1}
+    cur = [0, len(gems) - 1]
+    start, end = 0, 0
 
-    while right - left >= 0:
-        mid = (left+right) // 2
-        check = False
-        temp = []
-        for i in range(len(gems) - mid+1):
-            t = set(gems[i:i+mid])
-            target = len(t)
-            if target == find:
-                check = True
-                temp = [i+1, i+mid]
-                break
-        if check:
-            if not answer:
-                answer = temp
+    while start < len(gems) and end < len(gems):
+        if len(record) == final_size:
+            if end - start < cur[1] - cur[0]:
+                cur = [start, end]
+            if record[gems[start]] == 1:
+                del record[gems[start]] # 딕셔너리 키 제거
             else:
-                dist = answer[1] - answer[0]
-                temp_dist = temp[1] - temp[0]
-                if temp_dist < dist:
-                    answer = temp[:]
-                    right = mid - 1
-                elif temp_dist == dist:
-                    if temp[0] < answer[0]:
-                        answer = temp[:]
-                    right = mid - 1
-                else:
-                    left = mid + 1
+                record[gems[start]] -= 1
+            start += 1
         else:
-            left = mid + 1
-
-    return answer
+            end += 1
+            if end == len(gems):
+                break
+            if gems[end] in record.keys():
+                record[gems[end]] += 1
+            else:
+                record[gems[end]] = 1
+    return [cur[0] + 1, cur[1] + 1]
 
 
 print(solution(["ZZZ", "YYY", "NNNN", "YYY", "BBB"]))
