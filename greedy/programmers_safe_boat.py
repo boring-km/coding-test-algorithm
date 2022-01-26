@@ -4,7 +4,7 @@ def solution(people, limit):
     i, j = 0, len(people) - 1
     while i <= j:
         count += 1
-        if people[j] + people[i] <= limit:
+        if people[i] + people[j] <= limit:
             i += 1
         j -= 1
     return count

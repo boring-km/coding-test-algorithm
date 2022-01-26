@@ -2,7 +2,8 @@ def solution(rows, columns, queries):
     answer = []
     graph = []
     for i in range(rows):
-        graph.append([i * rows + j + 1 for j in range(columns)])
+        graph.append([i * columns + j + 1 for j in range(columns)])
+    print(graph)
 
     def rotate(query):
         sy, sx, ey, ex = query
@@ -43,4 +44,10 @@ def solution(rows, columns, queries):
     return answer
 
 
-print(solution(3,3, [[1,1,2,2],[1,2,2,3],[2,1,3,2],[2,2,3,3]]))
+# 1 2 3 4
+# 5 6 7 8
+
+# print(solution(6, 6, [[2, 2, 5, 4], [2, 2, 5, 4], [2, 2, 5, 4], [2, 2, 5, 4], [2, 2, 5, 4]
+#                       ,[2, 2, 5, 4], [2, 2, 5, 4], [2, 2, 5, 4], [2, 2, 5, 4]]))
+
+print(solution(5, 6, [[1, 1, 2, 2], [1, 1, 2, 2], [1, 1, 2, 2], [1, 1, 2, 2]]))
